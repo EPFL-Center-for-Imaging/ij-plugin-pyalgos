@@ -55,7 +55,6 @@ public class PyAlgosClient {
      * @return
      */
     public boolean isConnected() {
-        if (this.httpClient == null) return false;
         return this.httpClient.isConnected();
     }
 

@@ -37,6 +37,18 @@ public class ClientConnectionDialog extends ConnectionDialog implements ActionLi
         }
     }
 
+    private void displayConnected(String serverURL) {
+        labelStatusDetails.setText("Connected to " + serverURL);
+        this.setFocusSelectAlgo();
+    }
+
+    private void displayDisconnected(String serverURL) {
+        String connectErrMessage = serverURL != null ? "Could not connect to " + serverURL : "Not connected";
+        labelStatusDetails.setText(connectErrMessage);
+        this.updateAlgos(null);  // Disable existing algos since server is not connected
+        this.setFocusConnect();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnConnect) {
@@ -46,13 +58,9 @@ public class ClientConnectionDialog extends ConnectionDialog implements ActionLi
             String serverURL = textFieldServer.getText();
             try {
                 client.setServerURL(serverURL);
-                labelStatusDetails.setText("Connected to " + serverURL);
-                this.setFocusSelectAlgo();
+                displayConnected(serverURL);
             } catch (IOException serverIOE) {
-                String connectErrMessage = "Could not connect to " + serverURL;
-                labelStatusDetails.setText(connectErrMessage);
-                // Disable existing algos since server is disconnected
-                this.updateAlgos(null);
+                displayDisconnected(serverURL);
                 return;
             }
 
@@ -69,6 +77,9 @@ public class ClientConnectionDialog extends ConnectionDialog implements ActionLi
 
         } else if (e.getSource() == btnSelect) {
             PyAlgosClient client = PyAlgosClient.getInstance();
+            if (!client.isConnected()) {
+                displayDisconnected(client.getServerURL().toString());
+            }
             String algoName = comboBox.getSelectedItem().toString();
 
             // Open parameter dialogs

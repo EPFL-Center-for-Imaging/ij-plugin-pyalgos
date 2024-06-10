@@ -24,15 +24,15 @@ public class ClientConnectionDialog extends ConnectionDialog implements ActionLi
     }
 
     private void updateAlgos(String[] algos) {
-        comboBox.removeAllItems();
+        algosComboBox.removeAllItems();
         if (algos == null || algos.length == 0) {
-            comboBox.setEnabled(false);
+            algosComboBox.setEnabled(false);
             btnSelect.setEnabled(false);
         } else {
             for (String algo : algos) {
-                comboBox.addItem(algo);
+                algosComboBox.addItem(algo);
             }
-            comboBox.setEnabled(true);
+            algosComboBox.setEnabled(true);
             btnSelect.setEnabled(true);
         }
     }
@@ -80,7 +80,7 @@ public class ClientConnectionDialog extends ConnectionDialog implements ActionLi
             if (!client.isConnected()) {
                 displayDisconnected(client.getServerURL().toString());
             }
-            String algoName = comboBox.getSelectedItem().toString();
+            String algoName = algosComboBox.getSelectedItem().toString();
 
             // Open parameter dialogs
             try {

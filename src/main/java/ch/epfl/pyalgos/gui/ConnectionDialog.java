@@ -21,7 +21,7 @@ public abstract class ConnectionDialog extends JDialog {
 
     // Components related to the available algorithms
     protected final JLabel algosLabel = new JLabel("Available algorithms");
-    protected final JComboBox<String> comboBox = new JComboBox<String>(new String[]{});
+    protected final JComboBox<String> algosComboBox = new JComboBox<String>(new String[]{});
     protected final JButton btnSelect = new JButton("Select");
 
     public ConnectionDialog() {
@@ -56,7 +56,7 @@ public abstract class ConnectionDialog extends JDialog {
     }
 
     protected void setFocusSelectAlgo() {
-        comboBox.requestFocusInWindow();
+        algosComboBox.requestFocusInWindow();
         mainPanel.getRootPane().setDefaultButton(btnSelect);
     }
 
@@ -125,8 +125,8 @@ public abstract class ConnectionDialog extends JDialog {
         gbc.gridwidth = 1;
         gbc.gridheight = 1;
         gbc.insets = new Insets(1, 1, 1, 10);
-        panel.add(comboBox, gbc);
-        comboBox.setEnabled(false);
+        panel.add(algosComboBox, gbc);
+        algosComboBox.setEnabled(false);
 
         gbc.gridx = 2;
         gbc.gridwidth = 1;
